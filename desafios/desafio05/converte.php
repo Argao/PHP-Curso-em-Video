@@ -12,8 +12,8 @@
         
         <h1>Analisador de Número Real</h1>
         <?php 
-            $num = (float) str_replace(",",".",$_GET['real'] ?? 0);
-            $inter = intval($num);
+            $num = $_GET['real'] ?? 0;
+            $inter = (int) $num;
             $frac = $num - $inter;
             echo"<p> Alanisando o número <strong>".number_format($num,3,",",".")."</strong> informado pelo usuário</p>";
             echo"<ul>
@@ -21,7 +21,7 @@
                     <li>A parte fracionária do número é  <strong>".number_format($frac,3,",",".")."</strong></li>
                 </ul>";    
         ?>
-        <p><a href="javascript:history.go(-1)">Voltar</a></p>
+        <button onclick="javascript:window.location.href='index.html'">&#x2B05; Voltar</button>
     </section>
 </body>
 </html>

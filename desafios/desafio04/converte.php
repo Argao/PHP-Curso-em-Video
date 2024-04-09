@@ -12,32 +12,27 @@
         
         <h1>Conversor de Moedas v2.0</h1>
         <?php 
-            function convertBRLtoUSD() {
-                $top = 100;
-                $format = 'json';
-                $date = date('m-d-Y');
-                $url = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='{$date}'&$top=100&$format=json";
-                $json = file_get_contents($url);
-                $data = json_decode($json, true);
-                if (isset($data['value'][0]['cotacaoCompra'])) {
-                    return $data['value'][0]['cotacaoCompra'];
-                } else {
-                    return null;
-                }
-            }
-            $real = $_GET ['din'] ?? 0;
-            $real = (float) str_replace(",",".",$real);
+            $inicio = date("m-d-Y",strtotime("-7 days"));
+            $fim = date("m-d-Y");
+            $url = 'https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial=\''.$inicio.'\'&@dataFinalCotacao=\''.$fim.'\'&$top=1&$orderby=dataHoraCotacao%20desc&$format=json&$select=cotacaoCompra,dataHoraCotacao';
 
-            $rate = convertBRLtoUSD();
-            if ($rate) {
-                $dolar = $real / $rate;
-                echo "<p>Seus R$ ".number_format($real, 2, ",", ".")." equivalem a <strong> US$ ".number_format($dolar,2,",",".")."</strong></p>";
-                echo"<p><strong>Cotação fixa de R$".number_format($rate,2,",",".")."</strong> informada diretamente no código</p>";
-            } else {
-                echo "<p>Unable to fetch exchange rate.</p>";
-            }
+            // $dados = json_decode(file_get_contents($url));
+            // $cotacao = $dados->value[0]->cotacaoCompra;
+
+            $dados = json_decode(file_get_contents($url), true);
+            $cotacao = $dados['value'][0]['cotacaoCompra'];
+            // $cotacao = (float) str_replace(",",".",$cotacao);
+
+            $real = $_GET ['din'] ?? 0; 
+            
+            $dolar = $real / $cotacao;
+
+            $padrao = numfmt_create("pt_BR", NumberFormatter::CURRENCY);
+
+            echo "<p>Seus ".numfmt_format_currency($padrao,$real,"BRL")." equivalem a <strong> ".numfmt_format_currency($padrao,$dolar,"USD")."</strong></p>";
+            echo"<p><strong>Cotação atual de ".numfmt_format_currency($padrao,$cotacao,"BRL")."</strong> informada diretamente pela api do banco central</p>";
         ?>
-        <p><a href="javascript:history.go(-1)">Voltar</a></p>
+        <button onclick="javascript:window.location.href='index.html'">&#x2B05; Voltar</button>
     </section>
 </body> 
 </html>

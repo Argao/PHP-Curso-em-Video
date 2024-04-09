@@ -14,11 +14,17 @@
         <?php 
             const COTACAO = 5.03;
             $real = $_GET ['din'] ?? 0;
-            $real = (float) str_replace(",",".",$real);
             $dolar = $real / COTACAO;
 
-            echo "<p>Seus R$ ".number_format($real, 2, ",", ".")." equivalem a <strong> US$ ".number_format($dolar,2,",",".")."</strong></p>";
-            echo"<p><strong>Cotação fixa de R$".number_format(COTACAO,2,",",".")."</strong> informada diretamente no código</p>";
+            // echo "<p>Seus R$ ".number_format($real, 2, ",", ".")." equivalem a <strong> US$ ".number_format($dolar,2,",",".")."</strong></p>";
+            // echo"<p><strong>Cotação fixa de R$".number_format(COTACAO,2,",",".")."</strong> informada diretamente no código</p>";
+
+            //Formatação de moedas com internacionalização
+            $padrao = numfmt_create("pt_BR", NumberFormatter::CURRENCY);
+
+            echo "<p>Seus ".numfmt_format_currency($padrao,$real,"BRL")." equivalem a <strong> ".numfmt_format_currency($padrao,$dolar,"USD")."</strong></p>";
+            echo"<p><strong>Cotação fixa de ".numfmt_format_currency($padrao,COTACAO,"BRL")."</strong> informada diretamente no código</p>";
+
         ?>
         <button onclick="javascript:window.location.href='index.html'">&#x2B05; Voltar</button>
     </section>
