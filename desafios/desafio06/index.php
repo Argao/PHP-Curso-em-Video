@@ -14,7 +14,7 @@
 <body>
     <?php 
         $dividendo = $_GET['dividendo'] ?? 0;
-        $divisor = $_GET['divisor'] ?? 0;
+        $divisor = $_GET['divisor'] ?? 1;
     ?>
 
     <main>
@@ -36,6 +36,9 @@
             $quociente = (int) ($dividendo / $divisor);
 
             echo "<p>O dividendo é $dividendo</p>";
+            echo "<p>O divisor é $divisor</p>";
+            echo "<p>O quociente é $quociente</p>"; 
+            echo "<p>O resto é $resto</p>";
         ?>
 
     </section>
