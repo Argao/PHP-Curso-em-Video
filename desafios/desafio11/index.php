@@ -20,7 +20,7 @@
             <label for="preco">Preço do Produto (R$)</label>
             <input type="number" name="preco" id="preco" value = "<?=$preco?>" step="0.01"  value="<?=$preco?>">
             <label for="porcentagem">Qual será o percentual de reajuste? <strong id="reajusteLabel">(<?=$reajuste?>%)</strong> </label>
-            <input type="range" name="porcentagem" id="porcentagem" min="0" max="100" step="1"  oninput="updateLabel()" value="<?=$reajuste?>">
+            <input type="range" name="porcentagem" id="porcentagem" min="0" max="100" step="1"  oninput="mudaValor()" value="<?=$reajuste?>">
             <input type="submit" value="Reajustar">
         </form>
     </main>
@@ -30,12 +30,13 @@
         <h2>Resultado do reajuste</h2>
         <?php 
            $precoAtualizado = $preco  * ($reajuste/100 + 1);
+
             echo "<p> O produto que custava ".numfmt_format_currency($padrao,$preco,"BRL").", com <strong>".$reajuste."% de aumento</strong> vai passar a custar <strong>".numfmt_format_currency($padrao,$precoAtualizado,"BRL")."</strong> a partir de agora.</p>"
         ?>
     </section>   
 
     <script>
-        function updateLabel() {
+        function mudaValor() {
             var reajuste = document.getElementById('porcentagem').value;
             document.getElementById('reajusteLabel').textContent = '(' +reajuste + '%)';
         }

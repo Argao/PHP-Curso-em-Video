@@ -29,7 +29,8 @@
         
         <?php 
             $num_de_salario_minimo = (int) ($salario/$salarioMinimo);
-            $resto = $salario - $salarioMinimo * $num_de_salario_minimo;
+            // $resto = $salario - $salarioMinimo * $num_de_salario_minimo;
+            $resto = $salario%$salarioMinimo;
 
             echo "<p>Quem recebe um salário de ".numfmt_format_currency($padrao,$salario,"BRL")." ganha <strong>".$num_de_salario_minimo." salários mínimos</strong> + ".numfmt_format_currency($padrao,$resto,"BRL")." </p>"
         ?>
