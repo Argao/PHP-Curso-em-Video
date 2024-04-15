@@ -30,7 +30,7 @@
         
         <?php 
             $idade = $dataAlvo - $nascimento;
-             echo "<p>Quem nasceu em ".$nascimento." vai ter <strong>".$idade."</strong> anos em ".$dataAlvo."</p>"
+             echo "<p>Quem nasceu em ".$nascimento." vai ter <strong>".$idade."</ anos em ".$dataAlvo."</p>"
         ?>
     </section>    
 </body>
