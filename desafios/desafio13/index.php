@@ -23,7 +23,7 @@
         <form action="<?php echo $_SERVER['PHP_SELF']?>" method="get">
             <label for="preco">Qual valor você deseja sacar? (R$)*></label>  
             <input type="number" name="valor" id="valor"  value = "<?=$valor?>">
-            <small>*Notas disponiveis: R$100,R$50,R$10 e R$5</small>
+            <small>*Notas disponiveis: R$100,R$50, R$10 e R$5</small>
             <input type="submit" value="sacar">
         </form>
     </main>
